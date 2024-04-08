@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>University Housing</title>
+  <link rel="stylesheet" type="text/css" href="static/styleee.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+</head>
+<body>
+  <nav>
+    <ul class="nav-menu">
+      <li><a href="#home">Home</a></li>
+      <li class="dropdown">
+        <a href="#accommodation">Accommodation</a>
+        <ul class="dropdown-menu">
+          <li><a href="communities">View Communities</a></li>
+          <li><a href="apartment">View Apartments</a></li>
+        </ul>
+      </li>
+      <li><a href="{{ url_for('index') }}">Admin Sign In</a></li>
+      <li><a href="{{ url_for('login') }}">Sign In</a></li>
+      
+
+    </ul>
+  </nav>
+  <div class="search-container">
+    <div class="search-bar">
+        <select id="beds-dropdown" required>
+            <option value="" disabled selected>Bedrooms</option>
+            <option value="1">1 Bed</option>
+            <option value="2">2 Beds</option>
+            <option value="3">3 Beds</option>
+        </select>
+        <select id="bath-dropdown" required>
+            <option value="" disabled selected>Baths</option>
+            <option value="1">1 Bath</option>
+            <option value="2">2 Baths</option>
+        </select>
+        <input type="number" id="cost-input" placeholder="Cost in dollars">
+        <button type="button" onclick="performSearch()">Search</button>
+    </div>
+</div>
+   <div id="search-results"></div>
+
+<script>
+    function performSearch() {
+        // Get the selected values from the dropdowns and input field
+        const beds = document.getElementById("beds-dropdown").value;
+        const baths = document.getElementById("bath-dropdown").value;
+        const cost = document.getElementById("cost-input").value;
+
+        // Perform the search by sending the values to the server
+        fetch(`/search?beds=${beds}&baths=${baths}&cost=${cost}`)
+            .then(response => response.json())
+            .then(data => displayResults(data))
+            .catch(error => console.error("Error fetching data:", error));
+    }
+
+    function displayResults(data) {
+        const resultsDiv = document.getElementById("search-results");
+        resultsDiv.innerHTML = ""; // Clear previous results
+
+        if (data.length === 0) {
+            resultsDiv.innerText = "No apartments found matching the criteria.";
+            return;
+        }
+
+        // Display each apartment in the results
+        data.forEach(apartment => {
+            const apartmentDiv = document.createElement("div");
+            apartmentDiv.innerHTML = `
+                <h3>Apartment ID: ${apartment.apt_id}</h3>
+                <p>Bedrooms: ${apartment.bhk}</p>
+                <p>Bathrooms: ${apartment.bathroom}</p>
+                <p>Size: ${apartment.size} sq.ft</p>
+                <p>Description: ${apartment.description}</p>
+                <p>Price: $${apartment.price}</p>
+                <hr>
+            `;
+            resultsDiv.appendChild(apartmentDiv);
+        });
+    }
+</script>
+
+  <div class="campusimage">
+    <img src="https://ruf.org/wp-content/uploads/2020/06/1-uab-hero.jpg">
+    <div class="landing-text">
+      "Discover how our platform connects UAB students to assist with housing needs."
+    </div>
+</div>
+  
+  <!-- Search Bar -->
+  
+  
+  
+  <div class="headingfour">
+    <h3>Discover rental properties in Birmingham.</h3>
+  </div>
+
+  <div class="property-listings">
+    <div class="property-card">
+      <img src="https://lirp.cdn-website.com/3bc19b3f/dms3rep/multi/opt/H2+logo+pms+164c+and+white-200w.png" alt="H2 Real estate">
+      <div class="property-info">
+        <h3>H2 Real Estate</h3>
+        <p>H2, a renowned real estate agency, boasts an extensive portfolio of apartments in Birmingham, offering a diverse range of accommodation choices to cater to your specific needs and preferences. </p>
+      <a href="#">connect with students in H2 real estate</a>
+      </div>
+    </div>
+
+    <div class="property-card">
+      <img src="https://harvestapartments.net/wp-content/uploads/2019/11/harvest_logo.svg" alt="Property 2">
+      <div class="property-info">
+        <h3></h3>
+        <p>Harvest Real Estate, a notable real estate agency, features an enticing array of properties at affordable prices, providing ample choices for those seeking budget-friendly accommodation in Birmingham.</p>
+        <a href="#">Connect with students in Harvest real estate</a>
+      </div>
+    </div>
+  </div>
+  <div class="slider-container">
+    <h1 class="slider-heading">Explore rental roperties within walking distance of UAB</h1>
+    <!-- Image Slider -->
+    <div class="image-slider-container">
+        <div class="swiper-wrapper">
+            <!-- Image Slide 1 -->
+            <div class="swiper-slide image-slide">
+                <img src="https://via.placeholder.com/800x300" alt="Image 1">
+                <h3>Title 1</h3>
+                <p>Description of Image 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <!-- Image Slide 2 -->
+            <div class="swiper-slide image-slide">
+                <img src="https://via.placeholder.com/800x300" alt="Image 2">
+                <h3>Title 2</h3>
+                <p>Description of Image 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <!-- Add more Image Slides here (up to Image Slide 6) -->
+            <!-- Image Slide 3 -->
+            <div class="swiper-slide image-slide">
+                <img src="https://via.placeholder.com/800x300" alt="Image 3">
+                <h3>Title 3</h3>
+                <p>Description of Image 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <!-- Image Slide 4 -->
+            <div class="swiper-slide image-slide">
+                <img src="https://via.placeholder.com/800x300" alt="Image 4">
+                <h3>Title 4</h3>
+                <p>Description of Image 4 Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <!-- Image Slide 5 -->
+            <div class="swiper-slide image-slide">
+                <img src="https://via.placeholder.com/800x300" alt="Image 5">
+                <h3>Title 5</h3>
+                <p>Description of Image 5 Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <!-- Image Slide 6 -->
+            <div class="swiper-slide image-slide">
+                <img src="https://via.placeholder.com/800x300" alt="Image 6">
+                <h3>Title 6</h3>
+                <p>Description of Image 6 Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div>
+        <!-- Swiper Navigation Arrows -->
+        <div class="swiper-button-prev">&#10094;</div>
+        <div class="swiper-button-next">&#10095;</div>
+        <!-- Swiper Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
+<!-- Add the Swiper library -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper('.image-slider-container', {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 2
+            },
+            576: {
+                slidesPerView: 1
+            }
+        }
+    });
+</script>
+<script>
+  function search() {
+    const bedsDropdown = document.getElementById('beds-dropdown');
+    const bathDropdown = document.getElementById('bath-dropdown');
+    const costInput = document.getElementById('cost-input');
+    const searchButton = document.querySelector('.search-bar button');
+
+    // Check if the beds and baths dropdowns are selected
+    if (bedsDropdown.value === '' || bathDropdown.value === '') {
+      alert('Please select both the number of beds and baths.');
+      return;
+    }
+
+    // Perform the search or any other action here
+    // For demonstration purposes, let's just log the values
+    console.log('Beds:', bedsDropdown.value);
+    console.log('Baths:', bathDropdown.value);
+    console.log('Cost:', costInput.value);
+  }
+  function incrementCostValue(incrementBy) {
+  const costInput = document.getElementById('cost-input');
+  const currentValue = parseFloat(costInput.value) || 0;
+  const newValue = currentValue + incrementBy;
+  costInput.value = Math.max(0, newValue); // Ensure the value doesn't go below zero
+}
+
+</script>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="contact-info">
+      <h3>Contact Us</h3>
+      <p>Phone: (123) 456-7890</p>
+      <p>Email: info@studenthousing.com</p>
+      <p>Address: 123 Student Ave, City, State, ZIP</p>
+    </div>
+    <div class="social-links">
+      <h3>Follow Us</h3>
+      <a href="#" target="_blank">Facebook</a>
+      <a href="#" target="_blank">Twitter</a>
+      <a href="#" target="_blank">Instagram</a>
+    </div>
+    <div class="useful-links">
+      <h3>Useful Links</h3>
+      <a href="#">Home</a>
+      <a href="#">Accommodation</a>
+      <a href="#">Apply Now</a>
+      <a href="#">FAQs</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <div class="testimonials">
+      <h3>Testimonials</h3>
+      <p>"Great place to live! Convenient and friendly staff!"</p>
+      <p>"I love the amenities and the sense of community here."</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2023 Student Housing. All rights reserved.</p>
+    <p><a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a></p>
+  </div>
+</footer>
+</body>
+</html>
